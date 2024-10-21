@@ -1,25 +1,30 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './shared/layout/layout.component';
-import { PlaysComponent } from './plays/plays.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PlaysComponent } from './components/plays/plays.component';
+import { PlayDetailsComponent } from './components/play-details/play-details.component';
 
-export const routes: Routes = [
+export const routes: Routes = [{
+  path: "",
+  component: LayoutComponent,
+  children: [
     {
       path: "",
-      component: LayoutComponent,
-      children: [
-        {
-          path: "dashboard",
-          component: DashboardComponent,
-        },
-        {
-          path: "plays",
-          component: PlaysComponent,
-        },
-      ],
+      component: DashboardComponent,
     },
-    // {
-    //   path: "free-playbook-register",
-    //   component: FreePlaybookComponent,
-    // },
-  ];
+    {
+      path: "dashboard",
+      component: DashboardComponent,
+    },
+    {
+      path: "plays",
+      component: PlaysComponent,
+    },
+    {
+      path: "play-details",
+      component: PlayDetailsComponent,
+    },
+  ],
+}
+];
+

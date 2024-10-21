@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { afterNextRender, Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { LayoutService } from './services/layout.service';
 import { NgbModal, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from '@angular/common';
+import { LayoutService } from '../services/layout.service';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
   imports: [CommonModule, NgbModule, RouterOutlet],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css'
+  styleUrl: './layout.component.css',
+  providers: [LayoutService],
 })
 export class LayoutComponent {
   public dark: boolean =
@@ -17,7 +18,7 @@ export class LayoutComponent {
   menus = [
     {
       name: "Plays",
-      routeUrl: "/offense-public/offense;ref=tab-5",
+      routeUrl: "/plays",
       src: "../../../../assets/images/strategy.png",
       isActive: false,
     },
@@ -25,21 +26,24 @@ export class LayoutComponent {
   menuTogggle: boolean = false;
   constructor(private router: Router, public layout: LayoutService,
     private modalService: NgbModal) {
+
+    afterNextRender(() => {
+      let themeColor = localStorage.getItem("__APP-THEME__");
+      if (themeColor) {
+        setTimeout(() => {
+          this.layout.config.settings.layout_version = themeColor ?? "light";
+
+          if (this.layout.config.settings.layout_version == "dark-only") {
+            this.dark = true;
+          }
+        }, 0);
+      }
+    });
   }
 
   ngOnInit(): void { }
 
   ngAfterViewInit() {
-    let themeColor = localStorage.getItem("__APP-THEME__");
-    if (themeColor) {
-      setTimeout(() => {
-        this.layout.config.settings.layout_version = themeColor ?? "light";
-
-        if (this.layout.config.settings.layout_version == "dark-only") {
-          this.dark = true;
-        }
-      }, 0);
-    }
   }
 
   searchToggle() {
@@ -47,12 +51,12 @@ export class LayoutComponent {
   }
 
   layoutToggle() {
-    localStorage.removeItem("__APP-THEME__");
-    this.dark = !this.dark;
-    this.layout.config.settings.layout_version = this.dark
-      ? "dark-only"
-      : "light";
-    localStorage.setItem("__APP-THEME__", this.dark ? "dark-only" : "light");
+    // localStorage.removeItem("__APP-THEME__");
+    // this.dark = !this.dark;
+    // this.layout.config.settings.layout_version = this.dark
+    //   ? "dark-only"
+    //   : "light";
+    // localStorage.setItem("__APP-THEME__", this.dark ? "dark-only" : "light");
   };
 
   click_menu(menu: any) {
@@ -67,7 +71,9 @@ export class LayoutComponent {
   };
 
   goToFacebook() {
-    window.open('https://www.facebook.com/StrongsideApp', "_blank");
+    afterNextRender(() => {
+      window.open('https://www.facebook.com/StrongsideApp', "_blank");
+    });
   };
 
   // goToReportingIssue() {
