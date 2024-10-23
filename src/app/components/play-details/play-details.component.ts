@@ -5,6 +5,7 @@ import { CommonService } from '../../shared/services/common.service';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-play-details',
@@ -48,10 +49,13 @@ export class PlayDetailsComponent {
     private router: Router,
     private modalService: NgbModal,
     private el: ElementRef,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private meta: Meta,
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {
+    this.updateMetaTags();
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
       this.isDefaultImg = false;
@@ -70,6 +74,21 @@ export class PlayDetailsComponent {
       });
     }
   }
+
+  updateMetaTags() {
+    this.titleService.setTitle('Offense Plays Details');
+
+    // Standard Meta Tags
+    this.meta.addTag({ name: 'description', content: 'Detail Page of Offensive Plays' });
+    this.meta.addTag({ name: 'keywords', content: 'Offensive Plays Details, Related, Plays Related' });
+
+    // Open Graph Meta Tags
+    this.meta.addTag({ property: 'og:title', content: 'Offense Plays' });
+    this.meta.addTag({
+      property: 'og:description', content: 'Offensive Plays details Page'
+    });
+    this.meta.addTag({ property: 'og:image', content: '../../../assets/images/strategy.png' });
+  };
 
   getConceptPlaysName() {
     this.commonService.getplaysNamePublicView(this.id, '5392518c-787e-4926-b0a3-3aa61f722809').subscribe((resp) => {

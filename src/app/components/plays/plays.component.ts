@@ -7,6 +7,7 @@ import { first } from 'rxjs';
 import { Page } from '../../shared/models/page';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CommonService } from '../../shared/services/common.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-plays',
@@ -60,6 +61,8 @@ export class PlaysComponent {
     private viewScroller: ViewportScroller,
     private modalService: NgbModal,
     private commonService: CommonService,
+    private meta: Meta,
+    private titleService: Title
   ) {
     afterNextRender(() => {
       this.scrWidth = window.innerWidth;
@@ -92,6 +95,7 @@ export class PlaysComponent {
   }
 
   ngOnInit(): void {
+    this.updateMetaTags();
     this.searchForm.controls['order'].setValue(this.sortBy[2].value);
     this.selected = 8;
     this.viewType = window.innerWidth < 480 ? "Grid" : "Grid";
@@ -136,6 +140,21 @@ export class PlaysComponent {
     //   }
     // });
   }
+
+  updateMetaTags() {
+    this.titleService.setTitle('Offense Plays');
+
+    // Standard Meta Tags
+    this.meta.addTag({ name: 'description', content: 'List Of Plays' });
+    this.meta.addTag({ name: 'keywords', content: 'Offensive Plays, Statergy, Playbook' });
+
+    // Open Graph Meta Tags
+    this.meta.addTag({ property: 'og:title', content: 'Offense Plays' });
+    this.meta.addTag({
+      property: 'og:description', content: 'Plays its a part of Offense'
+    });
+    this.meta.addTag({ property: 'og:image', content: '../../../assets/images/strategy.png' });
+  };
 
   onInputSearch(evt: any) {
     //return this.offenseSearchService.setSearch(evt.target.value);

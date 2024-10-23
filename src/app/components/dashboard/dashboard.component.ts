@@ -1,5 +1,5 @@
 import { afterNextRender, Component, ElementRef, ViewChild } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
@@ -41,6 +41,7 @@ export class DashboardComponent {
     // private loaderService: LoaderService,
     private titleService: Title,
     // public toster: ToastrService,
+    private meta: Meta,
   ) {
     afterNextRender(() => {
       this.scrWidth = window.innerWidth;
@@ -62,6 +63,21 @@ export class DashboardComponent {
       this.limit = 4;
     }
     this.dashBoardData();
+  }
+
+  updateMetaTags() {
+    this.titleService.setTitle('Strongside Dashboard');
+
+    // Standard Meta Tags
+    this.meta.addTag({ name: 'description', content: 'Welcome to Strongside Dashboard.' });
+    this.meta.addTag({ name: 'keywords', content: 'StrongSide, Strongside Dashboard, Plays, Formation, Formation Stack, Concept' });
+
+    // Open Graph Meta Tags
+    this.meta.addTag({ property: 'og:title', content: 'Strongside Dashboard' });
+    this.meta.addTag({
+      property: 'og:description', content: 'Join the Team Experience The First Platform Made For Football Teams by Coaches.'
+    });
+    this.meta.addTag({ property: 'og:image', content: '../../../assets/images/logo/logo-icon.png' });
   }
 
   dashBoardData() {
@@ -203,7 +219,7 @@ export class DashboardComponent {
     }
   };
 
-  goToSignUp() {
-    this.router.navigate(['/authentication/register']);
-  };
+  // goToSignUp() {
+  //   this.router.navigate(['/authentication/register']);
+  // };
 }
