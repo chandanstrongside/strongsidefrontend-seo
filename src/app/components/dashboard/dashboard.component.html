@@ -1,0 +1,239 @@
+<!-- <nav class="navbar navbar-expand-lg c-public-offense-nav">
+    <a class="navbar-brand" href="#">
+        <img src="../../assets/images/logo/logo.png" alt="Logo" class="img-fluid">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+</nav> -->
+<div class="c-contet-wp c-offense-dashboard-w">
+    <div class="col-lg-12 col-12">
+        <!-- Videos Card -->
+        <div class="card">
+            <div class="card-body" style="position: relative;padding: 0px;">
+                <div class="d-flex justify-content-start mainvdbox">
+                    <div class="vdbox" *ngFor="let item of tmpVideos">
+                        <div class="vdimgbx">
+                            <img src="{{item.thumbnail}}" alt="{{item.originName}}" title="{{item.originName}}"
+                                class="img-fluid" *ngIf="item.thumbnail">
+                            <video width="100%" class="dash-video" *ngIf="!item.thumbnail">
+                                <source src="{{item.fileUrl}}" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="vdboxttl">
+                                <a>{{item.originName}}</a>
+                                <div class="d-flex justify-content-start align-items-center detlsusr">
+                                    <p>{{item.createdBy}} ({{item.createdOn}})</p>
+                                </div>
+                            </div>
+                            <div class="vdicnbx">
+                                <i class="icofont icofont-play-alt-2" (click)="playVideo(item)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary m-0 btn-prev" ngbTooltip="Prev" (click)="pre_video()"
+                    *ngIf="page1 > 0"><i class="icofont icofont-rounded-double-left"></i></button>
+                <button class="btn btn-secondary m-0 btn-next" ngbTooltip="Next" (click)="next_video()"
+                    *ngIf="((page1 + 1) * limit) < videos.length"><i
+                        class="icofont icofont-rounded-double-right"></i></button>
+            </div>
+        </div>
+
+        <!-- <div class="grid justify-content-center">
+            <div class="col-md-4 col-12 offset-md-4">
+                <div class="card cr-signUpBtnBox">
+                    <button type="submit" class="btn btn-secondary cr-sign-Btn" (click)="goToSignUp()">
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Offence card box -->
+        <div class="myPlaybook">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-12">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-12 playCard">
+                            <div class="card mH-420" *ngIf="plays && plays.length>0">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h3 (click)="view_more('tab-5')">Plays</h3>
+                                        <div>
+                                            <button class="btn btn-sm btn-secondary btnCstl"
+                                                (click)="view_more('tab-5')" ngbTooltip="View More"><i
+                                                    class="fa fa-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body dashowl">
+                                    <owl-carousel-o [options]="owlcarousel11options">
+                                        <ng-template carouselSlide class="item" [id]="play.id"
+                                            *ngFor="let play of plays">
+                                            <div class="dashimgcard forstackdashimg">
+                                                <img src="{{play.fileUrl}}" alt="{{play.name}}" title="{{play.name}}"
+                                                    class="img-fluid"
+                                                    *ngIf="!play.thumbnailUrl && !play.isPlay && play.fileUrl">
+                                                <img src="{{play.thumbnailUrl}}" alt="{{play.name}}"
+                                                    title="{{play.name}}" class="img-fluid"
+                                                    *ngIf="play.thumbnailUrl && !play.isPlay">
+                                                <video width="100%" class="dash-video"
+                                                    *ngIf="play.thumbnailUrl && play.isPlay">
+                                                    <source src="{{play.fileUrl}}" type="video/mp4">
+                                                </video>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="cntnpart">
+                                                    <a>{{play?.name}}</a>
+                                                </div>
+                                                <div class="vdicnbx" *ngIf="play.isVideo">
+                                                    <i class="icofont icofont-play-alt-2" (click)="playVideo(play)"></i>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </owl-carousel-o>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-12">
+                            <div class="card mH-420" *ngIf="concepts && concepts.length>0">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h3 (click)="view_more('tab-4')">Concepts</h3>
+                                        <div>
+                                            <button class="btn btn-sm btn-secondary btnCstl"
+                                                (click)="view_more('tab-4')" ngbTooltip="View More"><i
+                                                    class="fa fa-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body dashowl">
+                                    <owl-carousel-o [options]="owlcarousel11options">
+                                        <ng-template carouselSlide class="item" [id]="concept.id"
+                                            *ngFor="let concept of concepts">
+                                            <div class="dashimgcard forstackdashimg">
+                                                <img src="{{concept.fileUrl}}" alt="{{concept.name}}"
+                                                    title="{{concept.name}}" class="img-fluid"
+                                                    *ngIf="concept.fileUrl && !concept.isVideo">
+                                                <img src="{{concept.thumbnailUrl}}" alt="{{concept.name}}"
+                                                    title="{{concept.name}}" class="img-fluid"
+                                                    *ngIf="concept.thumbnailUrl && concept.isVideo">
+                                                <video width="100%" class="dash-video"
+                                                    *ngIf="!concept.thumbnailUrl && concept.isVideo">
+                                                    <source src="{{concept.fileUrl}}" type="video/mp4">
+                                                </video>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="cntnpart">
+                                                    <a>{{concept.name}}</a>
+                                                </div>
+                                                <div class="vdicnbx" *ngIf="concept.isVideo">
+                                                    <i class="icofont icofont-play-alt-2"
+                                                        (click)="playVideo(concept)"></i>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </owl-carousel-o>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-12">
+                            <div class="card mH-420"
+                                *ngIf="(formations && formations.length>0)||(formationStacks && formationStacks.length>0)">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h3 (click)="view_more('tab-3')">Formations</h3>
+                                        <div>
+                                            <button class="btn btn-sm btn-secondary btnCstl"
+                                                (click)="view_more('tab-3')" ngbTooltip="View More"><i
+                                                    class="fa fa-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body dashowl">
+                                    <owl-carousel-o [options]="owlcarousel1Options">
+                                        <ng-template carouselSlide class="item" [id]="formationSet.id"
+                                            *ngFor="let formationSet of formationStacks">
+                                            <div class="dashimgcard forstackdashimg">
+                                                <img src="{{formationSet.fileUrl}}" alt="{{formationSet.name}}"
+                                                    title="{{formationSet.name}}" class="img-fluid"
+                                                    *ngIf="!formationSet.thumbnailUrl && !formationSet.isVideo">
+                                                <img src="{{formationSet.thumbnailUrl}}" alt="{{formationSet.name}}"
+                                                    title="{{formationSet.name}}" class="img-fluid"
+                                                    *ngIf="formationSet.thumbnailUrl && formationSet.isVideo">
+                                                <video width="100%" class="dash-video"
+                                                    *ngIf="!formationSet.thumbnailUrl && formationSet.isVideo">
+                                                    <source src="{{formationSet.fileUrl}}" type="video/mp4">
+                                                </video>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="cntnpart">
+                                                    <a>{{formationSet.name}}</a>
+                                                </div>
+                                                <div class="vdicnbx" *ngIf="formationSet.isVideo">
+                                                    <i class="icofont icofont-play-alt-2"
+                                                        (click)="playVideo(formationSet)"></i>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template carouselSlide class="item" [id]="formation.id"
+                                            *ngFor="let formation of formations">
+                                            <div class="dashimgcard forstackdashimg">
+                                                <img src="{{formation.fileUrl}}" alt="{{formation.name}}"
+                                                    title="{{formation.name}}" class="img-fluid"
+                                                    *ngIf="!formation.thumbnailUrl && !formation.isVideo">
+                                                <img src="{{formation.thumbnailUrl}}" alt="{{formation.name}}"
+                                                    title="{{formation.name}}" class="img-fluid"
+                                                    *ngIf="formation.thumbnailUrl && formation.isVideo">
+                                                <video width="100%" class="dash-video"
+                                                    *ngIf="!formation.thumbnailUrl && formation.isVideo">
+                                                    <source src="{{formation.fileUrl}}" type="video/mp4">
+                                                </video>
+                                                <div class="vdicnbx" *ngIf="formation.isVideo">
+                                                    <i class="icofont icofont-play-alt-2"
+                                                        (click)="playVideo(formation)"></i>
+                                                </div>
+                                            </div>
+                                            <div class="cntnpart">
+                                                <a>{{formation.name}}</a>
+                                            </div>
+                                        </ng-template>
+                                    </owl-carousel-o>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Upper Video view Modal -->
+<ng-template #playbookDashboardVideoViewContent let-c="close" let-d="dismiss" let-modal>
+    <div class="modal-body">
+        <button type="button" class="close" aria-label="Close" (click)="closeModal(modal)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="boxvideo">
+            <video controls controlsList="nodownload" width="100%" (ended)="handleVideoEnded($event)">
+                <source src="{{modalData?.fileUrl}}" type="video/mp4" />
+            </video>
+        </div>
+        <div class="boxvideocntn">
+            <div class="d-flex justify-content-between align-items-center ttlfav">
+                <a href="{{modalData?.routeUrl}}" class="link">{{modalData?.originName ? modalData?.originName :
+                    modalData?.name ? modalData?.name : ""}}</a>
+                <!-- <img src="../../../../../assets/images/icr.png" alt="Favorite" *ngIf="modalData.isFavorite"> -->
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="m-0 f-w-500">{{modalData?.origin}}</p>
+                <p class="m-0">{{modalData?.createdOn}}({{modalData?.createdBy}})</p>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- END -->

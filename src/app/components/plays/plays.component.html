@@ -1,0 +1,259 @@
+<!-- <app-breadcrumb [title]="'Plays'" [items]="items" [active_item]="'Plays'"></app-breadcrumb> -->
+<!-- Container-fluid starts-->
+<div class="container-fluid product-wrapper" [class.sidebaron]="openSidebar">
+    <div class="product-grid">
+        <div class="feature-products">
+            <div class="row">
+                <div class="col-md-6 products-total mb-3">
+                    <div class="square-product-setting d-inline-block" (click)="toggleListView('Grid')">
+                        <a class="icon-grid grid-layout-view" href="javascript:void(0);">
+                            <i class="ti ti-desktop"></i>
+                        </a>
+                    </div>
+                    <div class="square-product-setting d-inline-block" (click)="toggleListView('List')">
+                        <a class="icon-grid m-0 list-layout-view" href="javascript:void(0);">
+                            <i class="ti ti-menu-alt"></i>
+                        </a>
+                    </div>
+                    <span class="d-none-productlist filter-toggle" (click)="sidebarToggle()">
+                        Filters
+                        <span class="ml-2">
+                            <i class="toggle-data" data-feather="chevron-down"></i>
+                        </span>
+                    </span>
+                </div>
+                <div class="col-md-6 text-right"><span class="f-w-600 m-r-5">Showing Plays
+                        {{(page.count>0)? (((page.offset - 1) * page.limit) + 1) : 0 }} -
+                        {{(page.limit < page.count) ? (((page.offset - 1) * page.limit) + page.limit) : page.count}} Of
+                            {{page.count}} Results</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <form [formGroup]="searchForm">
+                        <div class="product-sidebar">
+                            <div class="filter-section">
+                                <div class="card">
+                                    <div class="card-header" (click)="sidebarToggle()">
+                                        <h6 class="mb-0 f-w-600">Filters
+                                            <span class="pull-right">
+                                                <i class="fa fa-chevron-down toggle-data"></i>
+                                            </span>
+                                        </h6>
+                                    </div>
+                                    <div class="left-filter">
+                                        <div class="card-body filter-cards-view animate-chk" style="padding: 20px;">
+                                            <div class="product-filter">
+                                                <div class="checkbox-animated mt-0">
+                                                    <div class="d-block"
+                                                        *ngFor="let item of chboxArray;  let i = index">
+                                                        <input class="checkbox_animated" type="checkbox" value="item.id"
+                                                            [checked]="selected === i"
+                                                            (change)="chboxClicked($event,i)">
+                                                        <label> {{item.label}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-filter">
+                                                <!-- <label for="type">Filter by Update</label> -->
+                                                <ng-select [items]="updateOptions" placeholder="Select"
+                                                    bindLabel="label" bindValue="value"
+                                                    formControlName="dateFilterType">
+                                                    <ng-template ng-header-tmp>
+                                                        Select Filter by Update
+                                                    </ng-template>
+                                                </ng-select>
+                                            </div>
+                                            <div class="product-filter"
+                                                *ngIf="searchForm.controls['dateFilterType'].value == 0">
+                                                <!-- <label for="born">From</label> -->
+                                                <input class="form-control input-air-primary" type="date"
+                                                    placeholder="From" formControlName="lastUpdatedFrom">
+                                            </div>
+                                            <div class="product-filter"
+                                                *ngIf="searchForm.controls['dateFilterType'].value == 0">
+                                                <!-- <label for="born">To</label> -->
+                                                <input class="form-control input-air-primary" type="date"
+                                                    placeholder="To" formControlName="lastUpdatedto">
+                                            </div>
+                                            <!-- <div class="product-filter">
+                                                <div class="btn btn-primary mr-0" (click)="deleteArchive()"
+                                                    ngbTooltip="Empty All"
+                                                    *ngIf="searchForm.get('archive')?.value === true && rows.length >0 && userAccess.full">
+                                                    <i class="icofont icofont-ui-delete"></i>Empty All
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <form [formGroup]="searchForm" (ngSubmit)="search()">
+                        <div class="input-group mb-3">
+                            <input #searchBox type="search" class="form-control" placeholder="Search.."
+                                data-original-title="" title="" formControlName="searchText"
+                                aria-describedby="basic-addon1" (input)="onInputSearch($event)">
+                            <button class="input-group-append c-search-btn">
+                                <span class="input-group-text searchBx" id="basic-addon1"><i
+                                        class="fa fa-search"></i></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <div class="form-group mb-0 short">
+                        <form [formGroup]="searchForm">
+                            <select class="form-control" formControlName="order">
+                                <option value="">Sort By</option>
+                                <option *ngFor="let sort of sortBy" value="{{sort.value}}">{{sort.label}}</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product-wrapper-grid">
+            <div class="item_list_wrapper flexwarpbox" *ngIf="viewType === 'Grid'">
+                <!-- <div class="row"> -->
+                <div class="pr-0 flexboxx" *ngFor="let data of rows; let i=index; last as isLastParent">
+                    <div class="list_tem grd">
+                        <div class="d-flex align-items-center justify-content-between item_header">
+                            <p class="mb-0 title">
+                                <a class="link" href="{{getEditUrl(data.id)}}">{{data.name}}</a>
+                                <span *ngIf="data.baseFormationName || data.formationName || data.conceptName">
+                                    (
+                                    <a *ngIf="data.baseFormationName">{{data.baseFormationName}}</a>
+                                    {{data.baseFormationName && data.formationName ? ' / ' : ''}}
+                                    <a *ngIf="data.formationName">{{data.formationName}}</a>
+                                    {{data.formationName && data.conceptName ? ' / ' : ''}}
+                                    <a *ngIf="data.conceptName">{{data.conceptName}}</a>
+                                    )
+                                </span>
+                            </p>
+                            <div class="mr-2">
+                                <div class="list_indicator" *ngIf="data.isAutoGenarated" ngbTooltip="Autogenerated">
+                                    <img src="../../../assets/images/processing.png" alt="{{data.name}}" title="{{data.name}}">
+                                </div>
+                                <div class="list_indicator" *ngIf="data.isDesktopUpload" ngbTooltip="DesktopUpload">
+                                    <img src="../../../assets/images/computer.png" alt="{{data.name}}" title="{{data.name}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="img_grid list_info">
+                                <!-- <img class="img-fluid" src="{{data.svgFileName}}" alt="" *ngIf="data.svgFileName != null" (click)="detail(data.id)"> -->
+                                <img class="img-fluid" src="../../../assets/images/no-img_12850.jpg" alt="{{data.name}}"
+                                    title="{{data.name}}" *ngIf="data.thumbnailUrl == null && data.fileUrl == null"
+                                    (click)="detail(data.id)">
+                                <img class="img-fluid" src="{{data.thumbnailUrl}}" alt="{{data.name}}"
+                                    title="{{data.name}}" *ngIf="data.thumbnailUrl != null && data.isVideo"
+                                    (click)="detail(data.id)">
+                                <img class="img-fluid" src="{{data.fileUrl}}" alt="{{data.name}}" title="{{data.name}}"
+                                    *ngIf="data.fileUrl != null && !data.isVideo" (click)="detail(data.id)">
+
+                                <video width="100%" class="dash-video" *ngIf="!data.thumbnailUrl && data.isVideo"
+                                    (click)="detail(data.id)">
+                                    <source src="{{data.fileUrl}}" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center fvbox">
+                                <p class="m-0">
+                                    <span><i class="ti ti-alarm-clock"></i>
+                                        {{data.daysCount}}({{data.modifiedUser}})</span>
+                                    <span class="cust-invalid-feedback" style="font-size: 10px"
+                                        *ngIf="data.onlyShowUpdatable"> (*Update from Desktop)</span>
+                                </p>
+                            </div>
+                            <div class="vdicnbx" *ngIf="data.isVideo">
+                                <i class="icofont icofont-play-alt-2" (click)="openVideoModal(data)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+
+            <div class="row" *ngIf="viewType === 'List'">
+                <div class="pr-0 col-sm-12 col-xl-12 ng-star-inserted"
+                    *ngFor="let data of rows; let i=index; last as isLastParent">
+                    <div class="list_tem tbl d-flex align-items-center justify-content-between">
+                        <div class="item_header d-flex align-items-center justify-content-start" style="flex: 1;">
+                            <p class="mb-0 title">
+                                <a class="link" href="{{getEditUrl(data.id)}}"> {{data.name}} </a>
+                                <span style="font-size: 12px;font-weight: normal;"
+                                    *ngIf="data.baseFormationName || data.formationName || data.conceptName">
+                                    (
+                                    <a *ngIf="data.baseFormationName">{{data.baseFormationName}}</a>
+                                    {{data.baseFormationName && data.formationName ? ' / ' : ''}}
+                                    <a *ngIf="data.formationName">{{data.formationName}}</a>
+                                    {{data.formationName && data.conceptName ? ' / ' : ''}}
+                                    <a *ngIf="data.conceptName">{{data.conceptName}}</a>
+                                    )
+                                </span>
+                            </p>
+
+                            <div class="d-flex align-items-center pl-1">
+                                <div class="list_info" style="min-width: 233px;">
+                                    <span>
+                                        <i class="ti ti-alarm-clock"></i>{{data.daysCount}}({{data.modifiedUser}})
+                                    </span>
+                                    <span class="cust-invalid-feedback" style="font-size: 10px;"
+                                        *ngIf="data.onlyShowUpdatable"> (*Update from Desktop)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 130px;" class="text-center">
+                            <div class="list_indicator ng-star-inserted beforecntn" *ngIf="data.isAutoGenarated"
+                                ngbTooltip="Autogenerated">
+                                <img src="../../../assets/images/processing.png" alt="{{data.name}}" title="{{data.name}}">
+                                <!-- <span >AUTO</span> -->
+                            </div>
+                            <div class="list_indicator ng-star-inserted beforecntn" *ngIf="data.isDesktopUpload"
+                                ngbTooltip="Generated form desktop application">
+                                <img src="../../../assets/images/computer.png" alt="{{data.name}}" title="{{data.name}}">
+                                <!-- <span>DESKTOP</span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="outer-pagination">
+                <ngb-pagination class="d-flex justify-content-center my-2" [collectionSize]="page.count"
+                    [pageSize]="page.limit" [rotate]="true" (page)="page.offset" [maxSize]="5"
+                    (pageChange)="loadPage($event)" aria-label="Pagination" *ngIf="rows && rows.length > 0">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<!-- Video view Modal -->
+<ng-template #playsVideoViewContent let-c="close" let-d="dismiss" let-modal>
+    <div class="modal-body">
+        <button type="button" class="close" aria-label="Close" (click)="closeModal(modal)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="boxvideo">
+            <video controls controlsList="nodownload" width="100%" (ended)="handleVideoEnded($event)">
+                <source src="{{modalData.fileUrl}}" type="video/mp4" />
+            </video>
+        </div>
+        <div class="boxvideocntn">
+            <div class="d-flex justify-content-between align-items-center ttlfav">
+                <a href="{{getEditUrl(modalData.id)}}" class="link">{{modalData.name}}</a>
+                <!-- <img src="../../../../../assets/images/icr.png" alt="Favorite" *ngIf="modalData.isFavorite"> -->
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="m-0 f-w-500">{{modalData.origin}}</p>
+                <p class="m-0">{{modalData.daysCount}}({{modalData.modifiedUser}})</p>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- END -->

@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css');
+@import url('https://strongside.app/styles.css');
+@import url('https://cdn.jsdelivr.net/npm/@icon/themify-icons@1.0.1-alpha.3/themify-icons.min.css');
+@import url('https://cdn.jsdelivr.net/npm/@icon/icofont@1.0.1-alpha.1/icofont.min.css');
+
+.vdboxttl a {cursor: pointer;font-weight: 600;}
+.c-offense-view-dashboard-w .title a {
+    color: #122c34;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+.detlsusr p:first-child, .detlsusr p {font-weight: 600;}
