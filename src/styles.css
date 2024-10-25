@@ -28294,7 +28294,7 @@ html body .dark-only.dark-only .c-account-settings-table-w tr:nth-child(2n+2) td
 .rtl .owl-carousel {
   direction: ltr;
 }
-.rtl .btn-group > .btn:not(:last-child):not(.dropdown-toggle), .rtl .btn-group > :not(:last-child) > .btn {
+/* .rtl .btn-group > .btn:not(:last-child):not(.dropdown-toggle), .rtl .btn-group > :not(:last-child) > .btn {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-top-right-radius: 0.25rem;
@@ -28327,7 +28327,7 @@ html body .dark-only.dark-only .c-account-settings-table-w tr:nth-child(2n+2) td
 }
 .rtl .btn-group .btn-group-vertical .btn-group + .btn, .rtl .btn-group .btn-group-vertical .btn-group + .btn-group {
   margin-right: -1px;
-}
+} */
 .rtl .mr-3, .rtl .mx-3 {
   margin-right: unset !important;
   margin-left: 1rem !important;
@@ -37101,7 +37101,7 @@ html body .c-faq-search-panel-con-new.c-faq-search-panel-con-new .card:last-chil
 .vjs-icon-spinner:before {
   content: "\f10a";
 }
-.vjs-icon-subtitles, .video-js .vjs-subs-caps-button .vjs-icon-placeholder,
+/* .vjs-icon-subtitles, .video-js .vjs-subs-caps-button .vjs-icon-placeholder,
 .video-js.video-js:lang(en-GB) .vjs-subs-caps-button .vjs-icon-placeholder,
 .video-js.video-js:lang(en-IE) .vjs-subs-caps-button .vjs-icon-placeholder,
 .video-js.video-js:lang(en-AU) .vjs-subs-caps-button .vjs-icon-placeholder,
@@ -37126,7 +37126,7 @@ html body .c-faq-search-panel-con-new.c-faq-search-panel-con-new .card:last-chil
 .vjs-icon-captions:before, .video-js:lang(en) .vjs-subs-caps-button .vjs-icon-placeholder:before,
 .video-js:lang(fr-CA) .vjs-subs-caps-button .vjs-icon-placeholder:before, .video-js .vjs-captions-button .vjs-icon-placeholder:before {
   content: "\f10c";
-}
+} */
 .vjs-icon-hd {
   font-family: VideoJS;
   font-weight: normal;
