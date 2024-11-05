@@ -1,30 +1,11 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from './shared/layout/layout.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PlaysComponent } from './components/plays/plays.component';
-import { PlayDetailsComponent } from './components/play-details/play-details.component';
+import { OffensePublicLayoutComponent } from './components/public-pages/shared/offense-public-layout/offense-public-layout.component';
 
-export const routes: Routes = [{
-  path: "",
-  component: LayoutComponent,
-  children: [
-    {
-      path: "",
-      component: DashboardComponent,
-    },
-    {
-      path: "dashboard",
-      component: DashboardComponent,
-    },
-    {
-      path: "plays",
-      component: PlaysComponent,
-    },
-    {
-      path: "play-details",
-      component: PlayDetailsComponent,
-    },
-  ],
-}
+export const routes: Routes = [
+  {
+    path: 'offense-public',
+    component: OffensePublicLayoutComponent,
+    loadChildren: () => import('./components/public-pages/offense-public-routes').then((rt) => rt.OffensePublicRoutes)
+  }
 ];
 

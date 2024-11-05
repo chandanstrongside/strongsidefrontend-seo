@@ -1,0 +1,74 @@
+<!-- <app-breadcrumb [title]="'Concepts'" [items]="items" [active_item]="'Concepts'"></app-breadcrumb> -->
+<!-- Container-fluid starts-->
+<div class="container-fluid product-wrapper c-concept-wp" [class.sidebaron]="openSidebar">
+  <div class="product-grid">
+      <div class="feature-products">
+          <div class="row">
+              <div class="col-md-6 products-total mb-3">
+              </div>
+              <div class="col-md-6 text-right"><span class="f-w-600 m-r-5 mb-2">Showing Football Mind
+                  {{(page.count>0)? (((page.offset - 1) * page.limit) + 1) : 0 }} - 
+                  {{(page.limit < page.count) ? (((page.offset - 1) * page.limit) + page.limit) : page.count}} Of 
+                  {{page.count}} Results</span>
+              </div>
+          </div>
+          <div class="row">
+              <!-- <div class="col-sm-3">
+              </div> -->
+              <div class="col-md-5 col-sm-12">
+                  <form [formGroup]="searchForm" (ngSubmit)="search()">
+                      <div class="input-group mb-3">
+                          <input #searchBox type="search" class="form-control" placeholder="Search.." data-original-title=""
+                          title="" formControlName="searchText" aria-describedby="basic-addon1"
+                         >
+                          <button class="input-group-append c-search-btn">
+                              <span class="input-group-text searchBx" id="basic-addon1"><i class="fa fa-search"></i></span>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+              <div class="col-md-3 col-sm-12">
+                  <div class="d-flex justify-content-start align-items-center flex-wrap mobbtn c-header-btn-group">
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="product-wrapper-grid">
+          <div class="item_list_wrapper flexwarpbox">
+              <!-- <div class="row"> -->
+                  <div class="pr-0 flexboxx" *ngFor="let data of rows; let i=index; last as isLastParent">
+                      <div class="list_tem grd">
+                          <div class="d-flex align-items-center justify-content-between item_header">
+                              <p class="mb-0 title">
+                                  <a class="link" href="{{data.publicUrl}}">{{data.nameOrUserHandel}}</a>
+                                  {{data.nameOrUserHandel && data.footballMindCode ? '(' : ''}} 
+                                  <a class="link" href="{{data.publicUrl}}">{{data.footballMindCode}}</a> {{data.nameOrUserHandel && data.footballMindCode ? ')' : ''}} 
+                              </p>
+                          </div>
+                          <div class="d-flex align-items-center">
+                              <div class="img_grid list_info">
+                                  <!-- <img class="img-fluid" src="assets/images/no-img_12850.jpg" alt="default-image" title="default-image" *ngIf="data.profileImageUrl == null"> -->
+
+                                  <img class="img-fluid" src="{{data.profileImageUrl}}" alt="{{data.nameOrUserHandel}}" title="{{data.nameOrUserHandel}}" *ngIf="data.profileImageUrl != null">
+                              </div>
+                          </div>
+                          <div class="d-flex justify-content-between align-items-center fvbox">
+                              <p class="m-0">
+                                <span><i class="icon-alarm-clock"></i> {{data.daysCount}}({{data.modifiedUser}})</span>
+                              </p>  
+                          </div>
+                      </div>
+                  </div>
+                  <div *ngIf="!rows || rows.length == 0"><p>No data found.</p></div>
+              <!-- </div> -->
+          </div>
+          <div class="outer-pagination">
+            <ngb-pagination class="d-flex justify-content-center my-2" [collectionSize]="page.count" [pageSize]="page.limit"
+               [rotate]="true" (page)="page.offset" [maxSize]="5" (pageChange)="loadPage($event)" aria-label="Pagination" *ngIf="rows && rows.length > 0">
+            </ngb-pagination>
+        </div>
+      <!-- </div> -->
+  </div>
+</div>
+<!-- Container-fluid Ends-->
+

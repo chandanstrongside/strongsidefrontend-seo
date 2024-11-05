@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="col pt-3 pb-3">
+      <div class="logoBoxx">
+        <img src="../../assets/images/logo/login.png" alt="looginpage" title="looginpage"
+          class="img-fluid img-responsive">
+      </div>
+      <div class="cr-closeModal" (click)="closeModal('dismiss')">
+        <i class="fa fa-times"></i>
+      </div>
+      <!-- <h2 class="main-title" >Welcome to Strongside</h2> -->
+      <div class="card mb-3">
+        <div class="card-header pt-3" style="background: #49fff938;">
+          <h4 class="m-0 card-title" style="font-size: 21px;">Contact Us</h4>
+        </div>
+        <div class="card-body">
+          <form class="row" method="POST" [formGroup]="reportingIssueForm" autocomplete="off" novalidate
+            [ngClass]="{'was-validated': validate}">
+            <div class="col-md-12 col-12">
+              <div class="form-group mb-2">
+                <!-- <label class="form-label" >Name <span style="color: rgb(222, 11, 11);">*</span></label> -->
+                <input class="form-control" type="text" formControlName="subject" placeholder="Subject *" required>
+                <div class="invalid-feedback">
+                  Subject is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="form-group mb-2">
+                <!-- <label class="form-label" >Email <span style="color: rgb(222, 11, 11);">*</span></label> -->
+                <input class="form-control" type="text" formControlName="email" placeholder="Email">
+                <!-- <div class="invalid-feedback">
+                  Email is required.
+                </div> -->
+                <div class="cust-invalid-feedback"
+                  *ngIf="reportingIssueForm.controls.email.touched && reportingIssueForm.controls.email.errors?.email">
+                  Invalid Email
+                  Address.</div>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="form-group mb-2">
+                <!-- <label class="form-label" >Mobile</label> -->
+                <input class="form-control" formControlName="mobileNo" placeholder="Mobile No."
+                  (keyup)="onMobileChange($event)">
+              </div>
+            </div>
+            <div class="col-md-12 col-12">
+              <div class="form-group mb-2">
+                <!-- <label class="form-label" >Twitter&nbsp;<span style="color: rgb(222, 11, 11);">*</span></label> -->
+                <textarea rows="5" class="form-control" type="text" formControlName="description"
+                  placeholder="Description *" required></textarea>
+                <div class="invalid-feedback">
+                  Description is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-12">
+              <div class="form-row">
+                <div class="col-md-12 col-xl-12 col-12">
+                  <label for="defensivePlay_files">Upload File</label>
+                  <!-- <div class="custom-dropzone" ngx-dropzone accept=".png, .jpg, .mp4" (change)="onSelect($event)"
+                    [maxFileSize]=50000000>
+                    <ngx-dropzone-label>Drop files here or click to select
+                      files</ngx-dropzone-label>
+                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                      <ngx-dropzone-label style="max-width: 150px;">{{ f.name
+                        }}</ngx-dropzone-label>
+                    </ngx-dropzone-preview>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-12 ml-auto">
+          <div class="d-flex justify-content-end align-items-center">
+            <button class="btn btn-primary btn-sub  w-100" (click)="onSubmit()">
+              <span>Submit</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

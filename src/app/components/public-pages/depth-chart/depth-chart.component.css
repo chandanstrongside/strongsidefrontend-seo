@@ -1,0 +1,64 @@
+/* h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+ul,
+li,
+ol,
+p,
+span,
+strong,
+b,
+input,
+select {
+	font-family: 'Rajdhani', sans-serif !important;
+} */
+
+.listbox {
+    padding: 20px;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 5px;
+    color: #000000;
+    /* background: #0a302c; */
+}
+
+.listbox h4 {
+    /* color: #000000; */
+    font-size: 1.3rem;
+}
+
+.listbox hr {
+    margin-top: 0px !important;
+}
+.listbox .lists {
+    padding: 10px;
+    /* border: 1px solid #55d5cb; */
+    margin-bottom: 7px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 7px;
+    color: inherit;
+    background-color: #55d5cb;
+    transition: 0.3ms all;
+    color: #000000;
+}
+.listbox .lists:hover {
+    background-color: #55d5cb;
+    color: #000000;
+    transition: 0.3ms all;
+}
+
+.box {
+    width: 100%;
+    border: 1px solid rgba(0,0,0,.125);
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.box h4 {
+    font-size: 15px;
+}

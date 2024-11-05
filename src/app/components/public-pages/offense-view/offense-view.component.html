@@ -1,0 +1,117 @@
+<div class="c-contet-wp c-offense-view-dashboard-w">
+    <div class="buttonsec formationMenuMain d-flex justify-content-between align-items-center flex-wrap">
+        <div class="breadcameSec">
+            <ul>
+                <li class="pageName"><i class="icofont icofont-book-alt mr-2"></i> Playbook</li>
+                <!-- <li class="componentName" *ngIf="isDefaultView">{{playbook?.name}}</li> -->
+            </ul>
+        </div>
+        <!-- <button class="btn btn-primary" (click)="go_playbook()">{{!isDefaultView ? 'Default' : 'Customized'}} Playbook</button> -->
+        <div>
+            <button class="btn btn-primary c-back-btn-playbook mr-2" (click)="go_playbook()">Back to Playbook Dashboard
+            </button>
+            <button class="btn btn-primary" (click)="signIn()">
+                Create Account
+            </button>
+        </div>
+    </div>
+    <div class="formationMenuMain tabsecPos">
+        <ngb-nav #ngbNavRef class="nav-tabs" [(active)]="active">
+            <ngb-nav-item>
+                <ng-template ngbNavLink>
+                    <i class="icofont icofont-navigation-menu"></i> Formation Sets
+                </ng-template>
+                <ng-template ngbNavContent>
+                    <div class="myPlaybook">
+                        <app-formation-stack [playbookId]="playbookId"></app-formation-stack>
+                    </div>
+                </ng-template>
+            </ngb-nav-item>
+            <ngb-nav-item>
+                <ng-template ngbNavLink>
+                    <i class="icofont icofont-ui-edit"></i> Modifiers
+                </ng-template>
+                <ng-template ngbNavContent>
+                    <div class="myPlaybook">
+                        <app-modifiers [playbookId]="playbookId"></app-modifiers>
+                    </div>
+                </ng-template>
+            </ngb-nav-item>
+            <ngb-nav-item>
+                <ng-template ngbNavLink>
+                    <i class="icofont icofont-cube"></i> Formations
+                </ng-template>
+                <ng-template ngbNavContent>
+                    <div class="myPlaybook">
+                        <app-formations [playbookId]="playbookId"></app-formations>
+                    </div>
+                </ng-template>
+            </ngb-nav-item>
+            <ngb-nav-item>
+                <ng-template ngbNavLink>
+                    <i class="icofont icofont-layers"></i> Concepts
+                </ng-template>
+                <ng-template ngbNavContent>
+                    <div class="myPlaybook">
+                        <app-concepts [playbookId]="playbookId"></app-concepts>
+                    </div>
+                </ng-template>
+            </ngb-nav-item>
+            <ngb-nav-item>
+                <ng-template ngbNavLink>
+                    <img src="../../../../assets/images/strategy.png" width="15px" alt="strategy"
+                        title="strategy">&nbsp;&nbsp;&nbsp; Plays
+                </ng-template>
+                <ng-template ngbNavContent>
+                    <div class="myPlaybook">
+                        <app-plays [playbookId]="playbookId"></app-plays>
+                    </div>
+                </ng-template>
+            </ngb-nav-item>
+        </ngb-nav>
+
+        <!-- <ngb-tabset #ngbTabset #t="ngbTabset">
+            <ngb-tab id="tab-1">
+                <ng-template ngbTabTitle><i class="icofont icofont-navigation-menu"></i> Formation Sets</ng-template>
+                <ng-template ngbTabContent>
+                    <div class="myPlaybook">
+                        <app-formation-stack [playbookId]="playbookId"></app-formation-stack>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="tab-2">
+                <ng-template ngbTabTitle><i class="icofont icofont-ui-edit"></i> Modifiers</ng-template>
+                <ng-template ngbTabContent>
+                    <div class="myPlaybook">
+                        <app-modifiers [playbookId]="playbookId"></app-modifiers>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="tab-3">
+                <ng-template ngbTabTitle><i class="icofont icofont-cube"></i> Formations</ng-template>
+                <ng-template ngbTabContent>
+                    <div class="myPlaybook">
+                        <app-formations [playbookId]="playbookId"></app-formations>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="tab-4">
+                <ng-template ngbTabTitle><i class="icofont icofont-layers"></i> Concepts</ng-template>
+                <ng-template ngbTabContent>
+                    <div class="myPlaybook">
+                        <app-concepts [playbookId]="playbookId"></app-concepts>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="tab-5">
+                <ng-template ngbTabTitle><img src="../../../../assets/images/strategy.png" width="15px" alt="strategy"
+                        title="strategy">&nbsp;&nbsp;&nbsp; Plays</ng-template>
+                <ng-template ngbTabContent>
+                    <div class="myPlaybook">
+                        <app-plays [playbookId]="playbookId"></app-plays>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset> -->
+    </div>
+</div>

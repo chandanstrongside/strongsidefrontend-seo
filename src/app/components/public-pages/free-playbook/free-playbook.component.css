@@ -1,0 +1,23 @@
+.footer { background-color: #fff; box-shadow: 0 0 20px rgba(89, 102, 122, 0.1); padding: 15px; bottom: 0;
+    left: 0;transition: 0.5s;margin-left: 0px;margin: 0;}
+.c-public-offense-nav {background: #ffffff;border-bottom: 2px solid #26c6da;box-shadow: 0px 15px 10px -20px #111;  }
+.c-public-offense-nav .navbar-brand { margin: 0 auto;}
+.c-public-offense-nav .navbar-brand  img {width: 200px;}
+.c-contet-wp{ min-height:calc(100vh - 124px);background: #eee;display: flex;align-items: center;justify-content: center;}
+/* background: url('../../../assets/images/login_bg.jpg') no-repeat;background-size: cover;} */
+.c-contet-box { width: 400px;flex: 0 0 auto;margin: 50px 0;box-shadow: 0 0 37px rgba(8, 21, 66, 0.05);
+padding:25px 20px;background: #fff;border-radius: 12px;border:1px solid #26c6da;}
+.c-contet-box h3 {font-size:20px; text-align: center;margin-bottom: 15px;font-weight: 600;}
+.c-skip-btn { text-align: center;color: #595e60;font-size: 14px;font-weight: 600;margin-top:20px;margin-bottom: 0;
+cursor: pointer;}
+
+.form-control:invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+ .form-control:valid:focus {box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;}
+ .btn-secondary { background-color: #122c34 !important;border-color: #122c34 !important;}
+ .btn-secondary:hover { background-color: #007672 !important;color: #fff !important;border-color:#007672 !important;}
+@media only screen and (max-width: 600px) {
+    .c-contet-box  {width: 320px;}
+}

@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <h5 class="modal-title">Add Tag</h5>
+    <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="detailForm" autocomplete="off" class="needs-validation" novalidate
+        [ngClass]="{'was-validated': validate}">
+        <!-- <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <label for="tag-type">Tag Types</label>
+                <ng-select [items]="tagcollections" placeholder="Select"
+                    class="js-example-placeholder-multiple input-air-primary" formControlName="name"></ng-select>
+            </div>
+        </div> -->
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+
+                <!-- Using select multiple-box -->
+                <!-- <label for="add-tag">Tag</label>
+                    <ng-select class="js-example-basic-multiple input-air-primary"
+                        placeholder="Select Tag" formControlName="tagvalue"
+                        [multiple]="true" [items]="tags | async"
+                        [trackByFn]="trackByFn" [loading]="moviesLoading"
+                        typeToSearchText="Please enter {{minLengthTerm}} or more characters"
+                        [typeahead]="tagInput$">
+                    </ng-select> -->
+                <!-- Using select multiple-box -->
+
+                <!-- Using chip -->
+                <!-- <tag-input formControlName="tagvalue"
+                                    (onSelect)="onSelected($event)"
+                                    (onRemove)="onItemRemoved($event)"
+                                    (onTextChange)="onTextChange($event)"
+                                    (onAdd)="onItemAdded($event)">
+                            <ng-template let-item="tags" let-index="index">
+                                <span>{{ item }}</span>
+                                <delete-icon (click)="onItemRemoved(item, index)"></delete-icon>
+                            </ng-template>
+                        </tag-input> -->
+
+                <label class="d-block" for="chk-ani4">
+                    <tag-input formControlName="tagvalue" placeholder="Select / Enter a new tag"
+                        (onTextChange)="onTextChange($event)"
+                        (onRemove)="onItemRemoved($event)">
+                        <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="tags"
+                            placeholder="Select / Enter a new tag">
+                        </tag-input-dropdown>
+                    </tag-input>
+
+                    <!-- Using chip -->
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="submit()">Save</button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeModal('close')">Close</button>
+</div>

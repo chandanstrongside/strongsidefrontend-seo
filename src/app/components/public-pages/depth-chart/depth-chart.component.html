@@ -1,0 +1,33 @@
+<div class="features-wraper" id="features">
+    <div class="container-fluid">
+        <div class="row mt-2">
+            <div class="col-md-3 col-12">
+                <div class="card listbox">
+                    <div class="card-heder">
+                        <h4>Player Lists</h4>
+                    </div>
+                    <hr />
+                    <!-- <div style="max-height: 500px; overflow-y: auto;" [dragula]="'DRAGULA_PLAYER_LIST'">
+                        <div class="lists" *ngFor="let player of players; let i = index;">
+                            #{{i + 1}}
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="col-md-9 col-12">
+                <div class="row align-item-center justify-content-center">
+                    <div class="col-md-3 col-12" *ngFor="let pos of positions">
+                        <div class="card box listbox">
+                            <h4>{{pos.positionName}}({{pos.positionAlias}})</h4>
+                            <hr />
+                            <!-- <div style="min-height: 40px;" [dragula]="'DRAGULA_PLAYER_LIST'">
+                                
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

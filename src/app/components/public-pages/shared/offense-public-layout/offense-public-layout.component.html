@@ -1,0 +1,127 @@
+<div [ngClass]="layout.config.settings.layout_type" [class]="layout.config.settings.layout_version">
+    <div class="page-wrapper compact-wrapper" id="canvas-bookmark" [ngClass]="layout.config.settings.sidebar.type">
+        <div class="page-header close_icon">
+            <div class="header-wrapper row m-0">
+                <div class="header-logo-wrapper">
+                    <div class="logo-wrapper">
+                        <a href="/">
+                            <img src="../../../../assets/images/logo/logo.png" alt="Strongside-logo"
+                                title="Strongside-logo" class="img-fluid for-light">
+                            <img src="../../../../assets/images/logo/logo_dark.png" alt="Strongside-logo"
+                                title="Strongside-logo" class="img-fluid for-light">
+                        </a>
+                    </div>
+                    <div class="toggle-sidebar">
+                        <i data-feather="grid"></i>
+                    </div>
+                </div>
+                <div
+                    class="left-header col horizontal-wrapper pl-0 d-md-flex justify-content-md-around align-items-md-center">
+                </div>
+                <div class="nav-right col-md-7 col-12 pull-right right-header p-0 pt-0">
+                    <ul class="nav-menus">
+                        <li style="width: 36px;height: 36px;padding: 4px;text-align: center;border-radius: 50% !important;border: 2px solid #7c7c7c;cursor: pointer;"
+                            ngbTooltip="Go to Strongside facebook page" placement="left" class="c-facebook-btn">
+                            <span class="header-search" (click)="goToFacebook()">
+                                <i data-feather="facebook"></i>
+                            </span>
+                        </li>
+                        <li
+                            style="width: 36px;height: 36px;padding: 4px;text-align: center;border-radius: 50% !important;border: 2px solid #7c7c7c;cursor: pointer;">
+                            <span class="header-search" (click)="searchToggle()">
+                                <i data-feather="search"></i>
+                            </span>
+                        </li>
+                        <li>
+                            <div style="width: 36px;height: 36px;padding: 6px;text-align: center;border-radius: 50% !important;border: 2px solid #7c7c7c;cursor: pointer;"
+                                class="mode" (click)="layoutToggle()">
+                                <i class="fa fa-moon-o" *ngIf="!dark"></i>
+                                <i class="fa fa-lightbulb-o" *ngIf="dark"></i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media profile-media">
+                                <div class="media-body onhover-dropdown-1">
+                                    <h4>Strongside Team</h4>
+                                    <span>Free Playbook</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--page-wrapper Start-->
+        <div class="page-body-wrapper sidebar-icon" [ngClass]="layout.config.settings.sidebar.body_type">
+            <div [ngClass]="!menuTogggle ? 'sidebar-wrapper close_icon' :  'sidebar-wrapper'"
+                [attr.sidebar-layout]="layout.config.settings.sidebar_type">
+                <div class="logo-icon-wrapper">
+                    <a href="/">
+                        <img src="../../../../assets/images/logo/logo-icon.png" width="100%" alt="Strongside-logo"
+                            title="Strongside-logo" class="img-fluid for-light d-block">
+                    </a>
+                </div>
+                <nav class="sidebar-main">
+                    <div id="sidebar-menu">
+                        <div class="header-logo-wrapper c-menu-header-logo">
+                            <div class="logo-wrapper">
+                                <a href="/">
+                                    <img src="../../../../assets/images/logo/logo.png" alt="Strongside-logo"
+                                        title="Strongside-logo" class="img-fluid for-light">
+                                    <img src="../../../../assets/images/logo/logo_dark.png" alt="Strongside-logo"
+                                        title="Strongside-logo" class="img-fluid for-dark">
+                                </a>
+                                <div class="back-btn" style="cursor: pointer;" (click)="sidebarToggle()">
+                                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <ul class="sidebar-links custom-scrollbar">
+                            <li class="back-btn sidebar-list">
+                                <a href="javascript:void(0)">
+                                    <img class="img-fluid" src="assets/images/logo/logo-icon.png" alt="Strongside-logo"
+                                        title="Strongside-logo">
+                                </a>
+                                <div class="mobile-back text-right">
+                                    <span>Back</span>
+                                    <i class="fa fa-angle-right pl-2" aria-hidden="true"></i>
+                                </div>
+                            </li>
+                            <li class="sidebar-list" [ngClass]="menu.isActive? 'active_card' : ''"
+                                *ngFor="let menu of menus" (click)="click_menu(menu)">
+                                <a href="{{menu.routeUrl}}" class="sidebar-link" ngbTooltip="{{menu?.name}}"
+                                    placement="bottom">
+                                    <i class="{{menu.icon}}" *ngIf="!menu?.src"></i>
+                                    <img src="../../../../assets/images/strategy.png" width="15px" *ngIf="menu?.src"
+                                        alt="strategy" title="strategy">
+                                    <span> {{menu.name}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="page-body">
+                <main class="pt-4">
+                    <router-outlet></router-outlet>
+                    <div class="cr-msgCircle cr-fixedBtn" placement="left" (click)="goToReportingIssue()"
+                        style="cursor: pointer;">
+                        <!-- <span>25</span> -->
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <!-- ngbTooltip="Repoting Issue" -->
+                </main>
+            </div>
+            <!--page-wrapper Ends-->
+        </div>
+        <!-- footer start-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 footer-copyright text-center">
+                    <p class="mb-0">&copy; Strongside 2023 All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

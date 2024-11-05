@@ -1,0 +1,20 @@
+<div class="modal-body">
+    <h3>Free Playbook Request</h3>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal('dismiss')" ngbTooltip="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="form-group">
+        <label>Email</label>
+        <div class="theme-form needs-validation"  novalidate="" >
+            <input #emailInput="ngModel" ngModel class="form-control input-air-primary" id="emailId" type="email" placeholder="example@example.com" 
+            [(ngModel)]="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="">
+            <div *ngIf="emailInput?.touched">
+                <div style="color: red;" *ngIf="emailInput?.errors?.required">Email is required.</div>
+                <div class="cust-invalid-feedback" *ngIf="emailInput?.errors?.['pattern']">Invalid Email Address.</div>
+            </div>
+        </div>
+    </div>      
+    <button class="btn btn-secondary btn-sub w-100" [disabled]="!emailInput?.valid || !emailInput?.value" (click)="submit()">Give me a Free Account</button>
+    <p class="c-skip-btn" (click)="skip()">Skip</p>
+</div>
+

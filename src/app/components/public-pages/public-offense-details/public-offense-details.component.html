@@ -1,0 +1,454 @@
+<section class="c-public-offense-dw">
+    <div class="container-fluid">
+        <div class="c-formation-dw-hw">
+            <!-- <h2>{{originName}} Details</h2> -->
+            <h3>{{offenseDetailsData?.name}}</h3>
+            <div class="c-view-w">
+                <div class="c-view-in" ngbTooltip="Visitors" *ngIf="offenseDetailsData?.visitors">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    <span>{{offenseDetailsData?.visitors}}</span>
+                </div>
+                <div class="btn btn-primary mr-1" (click)="cancel()" ngbTooltip="Back">
+                    <i class="icon-angle-double-left"></i>
+                </div>
+                <div class="btn btn-primary mr-0 ml-1" (click)="social_handels_url_share()" ngbTooltip="Share Page Url"
+                    *ngIf="id">
+                    <i class="fa fa-share"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9 col-md-8" *ngIf="isDefaultImg">
+                <div class="container-bab c-public-offense-left">
+                    <img src="{{offenseDetailsData.defaultFileSeq}}" alt="{{offenseDetailsData?.name}}"
+                        title="default-image"
+                        *ngIf="!offenseDetailsData.isDefaultFileVideo && !offenseDetailsData.thumbnailSeq" />
+                    <img src="{{offenseDetailsData.thumbnailSeq}}" alt="{{offenseDetailsData?.name}}"
+                        title="{{offenseDetailsData?.name}}" (click)="openViewModal(offenseDetailsData.defaultFileSeq)"
+                        *ngIf="offenseDetailsData.isDefaultFileVideo && offenseDetailsData.thumbnailSeq" />
+                    <video width="100%" class="dash-video"
+                        *ngIf="offenseDetailsData.isDefaultFileVideo && !offenseDetailsData.thumbnailSeq">
+                        <source src="{{offenseDetailsData.defaultFileSeq}}" type="video/mp4">
+                    </video>
+                    <div class="video-overlay" (click)="openDefaultViewModal(offenseDetailsData)"
+                        *ngIf="offenseDetailsData.isDefaultFileVideo && offenseDetailsData.thumbnailSeq">
+                        <i class="icofont icofont-play-alt-2" ngbTooltip="Play"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4" *ngIf="videos?.length > 0 || images?.length > 0">
+                <div class="c-public-offense-right">
+                    <div class="c-public-offense-tab">
+                        <div *ngIf="videos?.length > 0">
+                            <div class="vdbox mb-2 ng-star-inserted" *ngFor="let item of videos">
+                                <div class="vdimgbx" style="position: relative;">
+                                    <div class="addtional forrightdie"> </div>
+                                    <img src="{{item.thumbnailUrl}}" alt="{{offenseDetailsData?.name}}"
+                                        title="{{offenseDetailsData?.name}}" *ngIf="item.thumbnailUrl">
+                                    <video width="100%" class="dash-video" *ngIf="!item.thumbnailUrl && item.fileUrl">
+                                        <source src="{{item.fileUrl}}" type="video/mp4">
+                                    </video>
+                                    <div class="overlayhover" style="position: absolute;" *ngIf="item.thumbnailUrl">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <button class="btn btn-outline-primary btn-eye-outline mr-2"
+                                                (click)="openViewModal(item)"><i class="icofont icofont-play-alt-2"
+                                                    ngbTooltip="Play"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="images?.length > 0">
+                            <div class="vdbox mb-2 ng-star-inserted" *ngFor="let item of images">
+                                <div class="vdimgbx" style="position: relative;">
+                                    <div class="addtional forrightdie"> </div>
+                                    <img src="{{item.fileUrl}}" alt="{{offenseDetailsData?.name}}"
+                                        title="{{offenseDetailsData?.name}}" class="img-fluid">
+                                    <div class="overlayhover" style="position: absolute;">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <button class="btn btn-outline-primary btn-eye-outline mr-2"
+                                                (click)="openViewModal(item)"><i class="icofont icofont-eye-alt"
+                                                    ngbTooltip="View"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="c-public-offense-dw-slider"
+        *ngIf="related?.length > 0 || relatedVideos?.length > 0 || relatedImages?.length > 0">
+        <div class="container-fluid">
+            <div class="c-secTitleBx">
+                <h3>Related Media</h3>
+            </div>
+            <owl-carousel-o [options]="owlcarousel1Options"
+                *ngIf="origin !='P' && ((relatedVideos?.length + relatedImages?.length) > 2)">
+                <ng-template carouselSlide class="item" *ngFor="let vdo of relatedVideos">
+                    <div class="c-newSldBox">
+                        <img [src]="[vdo.thumbnailUrl]" alt="{{vdo?.name}}" title="{{vdo?.name}}"
+                            *ngIf="vdo.thumbnailUrl">
+                        <video width="100%" class="dash-video" *ngIf="!vdo.thumbnailUrl && vdo.fileUrl">
+                            <source src="{{vdo.fileUrl}}" type="video/mp4">
+                        </video>
+                        <div class="overlayhover" style="position: absolute;" *ngIf="vdo.thumbnailUrl">
+                            <button class="btn btn-outline-primary btn-eye-outline mr-2">
+                                <i class="icofont icofont-play-alt-2" (click)="openViewModal(vdo)"
+                                    ngbTooltip="Play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="vdboxttl">
+                        <a class="link" title="{{vdo?.name}}" href="{{vdo?.routeUrlPublicView}}">{{vdo?.name}}</a>
+                        <div
+                            class="d-flex justify-content-between align-items-center detlsusr c-dark-routeUrlPublicView">
+                            <p>{{vdo?.origin}}</p>
+                            <p>STRONGSIDE ({{vdo?.activityOn}})</p>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template carouselSlide class="item" *ngFor="let img of relatedImages">
+                    <div class="c-newSldBox">
+                        <img [src]="[img.fileUrl]" alt="{{img.fileName}}" title="{{img.fileName}}">
+                        <div class="overlayhover" style="position: absolute;">
+                            <button class="btn btn-outline-primary btn-eye-outline mr-2">
+                                <i class="icofont icofont-eye-alt" (click)="openViewModal(img)"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="vdboxttl">
+                        <a class="link" title="{{img?.name}}" href="{{img?.routeUrlPublicView}}">{{img?.name}}</a>
+                        <div
+                            class="d-flex justify-content-between align-items-center detlsusr c-dark-routeUrlPublicView">
+                            <p>{{img?.origin}}</p>
+                            <p>STRONGSIDE ({{img?.activityOn}})</p>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template carouselSlide class="item">
+                    <div class="c-newSldBox c-related-show-main" *ngIf="((defaultRelatedVideos && defaultRelatedVideos.length > 0) || 
+                        (defaultRelatedImages && defaultRelatedImages.length > 0))">
+                        <div class="related-show-more-w">
+                            <button type="button" class="btn btn-secondary" (click)="loadMore()"
+                                *ngIf="!loadMoreIconshow">
+                                Load More
+                            </button>
+                            <div class="loader loader-4" *ngIf="loadMoreIconshow">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <!-- <div class="overlayhover" style="position: absolute;">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <button class="btn btn-outline-primary btn-eye-outline mr-2" (click)="loadMore()"
+                                    *ngIf="!loadMoreIconshow"> <i class="icofont icofont-plus"></i>
+                                </button>
+
+                            </div>
+                        </div> -->
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+            <owl-carousel-o [options]="owlcarousel1Options"
+                *ngIf="(origin ==='P' || origin ==='M') && related.length > 2">
+                <ng-template carouselSlide class="item" *ngFor="let item of related">
+                    <div class="c-newSldBox">
+                        <img src="{{item.fileUrl}}" alt="{{item?.name}}" title="{{item?.name}}" *ngIf="!item.isVideo">
+                        <img src="{{item.thumbnailUrl}}" alt="{{item?.name}}" title="{{item?.name}}" preload="metadata"
+                            *ngIf="item.thumbnailUrl && item.isVideo">
+                        <video width="100%" class="dash-video" *ngIf="!item.thumbnailUrl && item.isVideo">
+                            <source src="{{item.fileUrl}}" type="video/mp4">
+                        </video>
+                        <div class="overlayhover" style="position: absolute;">
+                            <button class="btn btn-outline-primary btn-eye-outline mr-2"
+                                *ngIf="item.isVideo && item.thumbnailUrl">
+                                <i class="icofont icofont-play-alt-2" (click)="openViewModal(item)"
+                                    ngbTooltip="Play"></i>
+                            </button>
+                            <button class="btn btn-outline-primary btn-eye-outline mr-2" *ngIf="!item.isVideo">
+                                <i class="icofont icofont-eye-alt" (click)="openViewModal(item)"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="vdboxttl">
+                        <a class="link" title="{{item?.name}}" href="{{item?.routeUrlPublicView}}">{{item?.name}}</a>
+                        <div
+                            class="d-flex justify-content-between align-items-center detlsusr c-dark-routeUrlPublicView">
+                            <p>{{item?.origin}}</p>
+                            <p>STRONGSIDE ({{item?.activityOn}})</p>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template carouselSlide class="item">
+                    <div class="c-newSldBox c-related-show-main" *ngIf="defaultFiles?.length > 0">
+                        <div class="related-show-more-w">
+                            <button type="button" class="btn btn-secondary" (click)="loadMoreForPlayAndModifier()"
+                                *ngIf="!loadMoreIconshow">
+                                Load More
+                            </button>
+                            <div class="loader loader-4" *ngIf="loadMoreIconshow">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <!-- <div class="overlayhover" style="position: absolute;">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <button class="btn btn-outline-primary btn-eye-outline mr-2"
+                                    > <i
+                                        class="icofont icofont-plus"></i>
+                                </button>
+                            </div>
+                        </div> -->
+                    </div>
+                </ng-template>
+
+            </owl-carousel-o>
+            <div class="c-public-offense-dw-slider-none"
+                *ngIf="origin !='P' && ((relatedVideos?.length + relatedImages?.length ) < 3)">
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let vdo of relatedVideos">
+                        <div class="c-newSldBox">
+                            <img [src]="[vdo.thumbnailUrl]" alt="{{vdo?.name}}" *ngIf="vdo.thumbnailUrl">
+                            <video width="100%" class="dash-video" *ngIf="!vdo.thumbnailUrl && vdo.isVideo">
+                                <source src="{{vdo.fileUrl}}" type="video/mp4">
+                            </video>
+                            <div class="overlayhover" style="position: absolute;" *ngIf="vdo.thumbnailUrl">
+                                <button class="btn btn-outline-primary btn-eye-outline mr-2">
+                                    <i class="icofont icofont-play-alt-2" (click)="openViewModal(vdo)"
+                                        ngbTooltip="Play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="vdboxttl">
+                            <a class="link" title="{{vdo?.name}}" href="{{vdo?.routeUrlPublicView}}">{{vdo?.name}}</a>
+                            <div
+                                class="d-flex justify-content-between align-items-center detlsusr c-dark-routeUrlPublicView">
+                                <p>{{vdo?.origin}}</p>
+                                <p>STRONGSIDE ({{vdo?.activityOn}})</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" *ngFor="let img of relatedImages">
+                        <div class="c-newSldBox">
+                            <img [src]="[img.fileUrl]" alt="{{img?.name}}">
+                            <div class="overlayhover" style="position: absolute;">
+                                <button class="btn btn-outline-primary btn-eye-outline mr-2">
+                                    <i class="icofont icofont-eye-alt" (click)="openViewModal(img)"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="vdboxttl">
+                            <a class="link" title="{{img?.name}}" href="{{img?.routeUrlPublicView}}">{{img?.name}}</a>
+                            <div
+                                class="d-flex justify-content-between align-items-center detlsusr c-dark-routeUrlPublicView">
+                                <p>{{img?.origin}}</p>
+                                <p>STRONGSIDE ({{img?.activityOn}})</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="c-newSldBox c-related-show-main"
+                            *ngIf="defaultRelatedVideos?.length > 0 || defaultRelatedImages?.length > 0">
+                            <div class="related-show-more-w">
+                                <button type="button" class="btn btn-secondary" (click)="loadMore()"
+                                    *ngIf="!loadMoreIconshow">
+                                    Load More
+                                </button>
+                                <div class="loader loader-4" *ngIf="loadMoreIconshow">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <!-- <div class="overlayhover" style="position: absolute;">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <button class="btn btn-outline-primary btn-eye-outline mr-2" (click)="loadMore()"
+                                        *ngIf="!loadMoreIconshow"> <i class="icofont icofont-plus"></i>
+                                    </button>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c-public-offense-dw-slider-none" *ngIf="(origin ==='P' || origin ==='M') && related.length < 3">
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let item of related">
+                        <div class="c-newSldBox">
+                            <img src="{{item.fileUrl}}" alt="{{item?.name}}" title="{{item?.name}}"
+                                *ngIf="!item.isVideo">
+                            <img src="{{item.thumbnailUrl}}" alt="{{item?.name}}" title="{{item?.name}}"
+                                preload="metadata" *ngIf="item.thumbnailUrl && item.isVideo">
+                            <video width="100%" class="dash-video" *ngIf="!item.thumbnailUrl && item.isVideo">
+                                <source src="{{item.fileUrl}}" type="video/mp4">
+                            </video>
+                            <div class="overlayhover" style="position: absolute;">
+                                <button class="btn btn-outline-primary btn-eye-outline mr-2"
+                                    *ngIf="item.isVideo && item.thumbnailUrl">
+                                    <i class="icofont icofont-play-alt-2" (click)="openViewModal(item)"
+                                        ngbTooltip="Play"></i>
+                                </button>
+                                <button class="btn btn-outline-primary btn-eye-outline mr-2" *ngIf="!item.isVideo">
+                                    <i class="icofont icofont-eye-alt" (click)="openViewModal(item)"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="vdboxttl">
+                            <a class="link" title="{{item?.name}}" href="{{img?.routeUrlPublicView}}">{{item?.name}}</a>
+                            <div
+                                class="d-flex justify-content-between align-items-center detlsusr c-dark-routeUrlPublicView">
+                                <p>{{item?.origin}}</p>
+                                <p>STRONGSIDE ({{item?.activityOn}})</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" *ngFor="let item of related">
+                        <div class="c-newSldBox">
+                            <img src="{{item.fileUrl}}" alt="{{item?.name}}" title="{{item?.name}}"
+                                *ngIf="!item.isVideo">
+                            <img src="{{item.thumbnailUrl}}" alt="{{item?.name}}" title="{{item?.name}}"
+                                preload="metadata" *ngIf="item.thumbnailUrl && item.isVideo">
+                            <video width="100%" class="dash-video" *ngIf="!item.thumbnailUrl && item.isVideo">
+                                <source src="{{item.fileUrl}}" type="video/mp4">
+                            </video>
+                            <div class="overlayhover" style="position: absolute;">
+                                <button class="btn btn-outline-primary btn-eye-outline mr-2"
+                                    *ngIf="item.isVideo && item.thumbnailUrl">
+                                    <i class="icofont icofont-play-alt-2" (click)="openViewModal(item)"
+                                        ngbTooltip="Play"></i>
+                                </button>
+                                <button class="btn btn-outline-primary btn-eye-outline mr-2" *ngIf="!item.isVideo">
+                                    <i class="icofont icofont-eye-alt" (click)="openViewModal(item)"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="vdboxttl">
+                            <a class="link" title="{{item?.name}}" href="{{img?.routeUrlPublicView}}">{{item?.name}}</a>
+                            <div
+                                class="d-flex justify-content-between align-items-center detlsusr c-dark-routeUrlPublicView">
+                                <p>{{item?.origin}}</p>
+                                <p>STRONGSIDE ({{item?.activityOn}})</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="c-newSldBox c-related-show-main" *ngIf="defaultFiles && defaultFiles.length > 0">
+                            <div class="related-show-more-w">
+                                <button type="button" class="btn btn-secondary">
+                                    Load More
+                                </button>
+                            </div>
+                            <div class="overlayhover" style="position: absolute;">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <button class="btn btn-outline-primary btn-eye-outline mr-2"
+                                        (click)="loadMoreForPlayAndModifier()" *ngIf="!loadMoreIconshow"> <i
+                                            class="icofont icofont-plus"></i>
+                                    </button>
+                                    <div class="loader loader-4" *ngIf="loadMoreIconshow">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- View modal -->
+<ng-template #videoViewcontent let-c="close" let-d="dismiss" let-modal>
+    <div class="modal-body">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"
+            ngbTooltip="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="boxvideo">
+            <img src="{{modalData?.fileUrl}}" alt="{{modalData?.name}}" title="{{modalData?.name}}" class="img-fluid"
+                *ngIf="!modalData?.isVideo">
+            <!-- <img src="{{modalData?.thumbnailUrl}}" alt="" class="img-fluid" *ngIf="modalData?.thumbnailUrl && modalData?.isVideo"> -->
+            <video controls controlsList="nodownload" width="100%" *ngIf="modalData?.thumbnailUrl && modalData?.isVideo"
+                (ended)="handleVideoEnded($event)">
+                <source src="{{modalData?.fileUrl}}" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</ng-template>
+<!-- END -->
+<!-- Default View modal -->
+<ng-template #defaultViewcontent let-c="close" let-d="dismiss" let-modal>
+    <div class="modal-body">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"
+            ngbTooltip="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="boxvideo">
+            <video controls controlsList="nodownload" width="100%" (ended)="handleVideoEnded($event)">
+                <source src="{{modalData?.defaultFileSeq}}" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</ng-template>
+<!-- END -->
+<!-- Add Share Modal -->
+<ng-template #shareModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Share</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-row">
+            <div class="col-md-12">
+                <!-- <label for="clipboard1">Share Link</label> -->
+                <input class="form-control" id="clipboard1" [ngModel]="shareUrl" type="text" placeholder="Share Link"
+                    readonly #userinput>
+            </div>
+            <div class="col-md-12">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="icnbox facebook" data-href="https://developers.facebook.com/docs/plugins/"
+                        data-layout="button_count" data-size="small">
+                        <a target="_blank"
+                            href="https://www.facebook.com/sharer/sharer.php?u={{shareUrl}}&amp;src=sdkpreparse"
+                            class="fb-xfbml-parse-ignore" ngbTooltip="Facebook" placement="bottom">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </div>
+                    <div class="icnbox whatsapp">
+                        <a target="_blank" [href]="whatsAppshareUrl" ngbTooltip="Whatsapp" placement="bottom">
+                            <i data-action="share/whatsapp/share" class="fa fa-whatsapp"></i>
+                        </a>
+                    </div>
+                    <div class="icnbox insta" ngbTooltip="Instagram" placement="bottom">
+                        <a target="_blank" [href]="instagramShareUrl">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="icnbox twitter">
+                        <a target="_blank" [href]="twitterShareUrl" ngbTooltip="Twitter" placement="bottom">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                    </div>
+                    <div class="icnbox copy">
+                        <a href="javascript:void(0)" (click)="copyInputMessage(userinput)" ngbTooltip="Copy Link"
+                            placement="bottom">
+                            <i class="fa fa-clipboard" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- END -->

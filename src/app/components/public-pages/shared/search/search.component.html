@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h4>Advance Search</h4>
+            <div class="btn btn-primary mr-1" (click)="cancel()" ngbTooltip="Back">
+              <i class="icon-angle-double-left"></i>
+          </div>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="detailForm" class="form-inline search-full w-100" [class.open]="navServices.search">
+              <div class="input-group mb-3 w-100">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                <tag-input #searchBox class="form-control-plaintext mainsearch w-100" formControlName="tagNames"
+                  placeholder="Search.." secondaryPlaceholder="Search.." (onTextChange)="onTextChange($event)"
+                  (onAdd)="onItemAdded()" (onRemove)="onItemRemoved()">
+                  <tag-input-dropdown placeholder="Search.." secondaryPlaceholder="Search.." [showDropdownIfEmpty]="true"
+                  [autocompleteItems]="tags">
+                  <ng-template let-item="item" let-index="index">
+                    {{ item.display }}
+                   </ng-template>
+                  </tag-input-dropdown>
+                  <!-- [autocompleteItems]="tags" -->
+                </tag-input>
+                <!-- <span class="input-group-text" (click)="searchToggle()"><i class="fa fa-close"></i></span> -->
+              </div>
+              <!-- <div class="w-100 divFlex">
+                <button class="icnbtn">
+                  <i class="fa fa-search"></i>
+                </button>
+                <tag-input class="form-control-plaintext mainsearch w-100" formControlName="tagNames"
+                  placeholder="Search.." secondaryPlaceholder="Search.." (onTextChange)="onTextChange($event)"
+                  (onAdd)="onItemAdded()" (onRemove)="onItemRemoved()">
+                  <tag-input-dropdown placeholder="Search.." secondaryPlaceholder="Search.." [showDropdownIfEmpty]="true"
+                    [autocompleteItems]="tags">
+                  </tag-input-dropdown>
+                </tag-input>
+                <app-feather-icons [icon]="'x'" class="close-search" (click)="searchToggle()"></app-feather-icons>
+              </div> -->
+            </form>
+            <div class="Typeahead-menu srcoll" [class.is-open]="searchResult" *ngIf="globalResults?.length && globalResults.length > 0 && !isRedirect" id="search-outer">
+              <!-- box card main-->
+              <div class="searchboxcrad ">
+                <!-- box -->
+                <div class="searchinnercard" *ngFor="let data of globalResults; let i=index">
+                  <div class="innercardheader">
+                    <h5><a href="{{data.pageUrl}}" target="_blank">{{data.pageName}} ({{data.globalTags.length}})</a></h5>
+                  </div>
+                  <div [ngClass]='data.globalTags.length > 7 ? "innercardlist c-searchboxcrad-scroll": "innercardlist"' (scroll)="onScroll($event,i)">
+                    <ul>
+                      <li *ngFor="let origin of data.globalTags;let i=index" ><a href="{{origin.url}}">{{origin.name}}</a></li>
+                    </ul>
+                  </div>
+                   <button class="c-searchinnercard-extra-btn" *ngIf="data.globalTags.length > 7 && downArrow[i]">
+                        <i class="icofont icofont-arrow-down" aria-hidden="true"></i>
+                   </button>
+                </div>
+                <!-- /end -->
+              </div>
+              <!-- /end -->
+            </div>
+              <div class="Typeahead-menu" [class.is-open]="searchResultEmpty">
+                <div class="tt-dataset tt-dataset-0">
+                  <div class="EmptyMessage">
+                    Opps!! There are no result found.
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

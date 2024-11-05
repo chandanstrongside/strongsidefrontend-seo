@@ -1,0 +1,59 @@
+.main-title {
+    text-align: center;
+    margin: 15px 0px;
+}
+.logoBoxx {
+    width: 135px;
+    margin: 0px auto 20px;
+    display: block;
+}
+.card {
+    border: 1px solid #eeeeee;
+}
+.card .card-header {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+.card .card-body .form-group .form-label {
+    font-weight: 500;
+}
+.card .card-body .form-group .form-control {
+    height: 48px;
+}
+.card .card-body .form-group .form-control:focus, .card .card-body .form-group .form-control:focus-visible,
+.card .card-body .form-group .form-control:focus-within, .card .card-body .form-group .form-control:active {
+    outline: none;
+    box-shadow: none;
+}
+.btn-sub {
+    height: 46px;
+    font-size: 17px;
+}
+
+.cr-closeModal {
+    position: absolute;
+    top: -10px;
+    right: -12px;
+}
+.cr-closeModal i {
+    background: #000;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+@media only screen and (max-width:767px) {
+    .custom-dropzone {
+        height: 100px;
+        padding: 7px;
+    }
+    .cr-closeModal {
+        top: -10px;
+        right: 0px;
+    }
+}

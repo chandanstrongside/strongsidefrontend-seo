@@ -1,0 +1,111 @@
+::-webkit-scrollbar {
+	width: 2px;
+	border-radius: 0px;
+	height: 4px;
+}
+
+
+.mainsearch {
+    /* width: 90% !important;
+    margin-left: 15px; */
+    padding: 0 !important;
+}
+.icnbtn {
+    background: transparent;
+    border: none;
+    margin-left: 15px;
+    color: #898989;
+}
+
+.searchboxcrad {
+    display: flex;
+    flex-flow: wrap;
+}
+.searchinnercard {
+    border: 1px solid #ccc;
+    width: 24%;
+    /* margin: 0 15px 15px 0; */
+    margin-right: 1%;
+    margin-bottom: 15px;
+    flex-flow: wrap;
+    border-radius: 5px;
+}
+.searchinnercard:nth-child(4n + 4) {
+    margin-right: 0px;
+    width: 24.5%;
+}
+.innercardheader {
+    padding: 10px;
+    background: #1afff7;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.innercardheader h5 {
+    font-size: 16px;
+    margin: 0;
+}
+.innercardlist ul li a {
+    padding: 5px 10px;
+    display: block;
+    border-bottom: 1px solid #eee;
+    font-size: 12px
+}
+.searchboxcrad { position: relative;}
+.c-searchboxcrad-scroll{
+    height: calc(100vh - 72vh);
+    overflow-y: auto;
+}
+.searchinnercard  { position: relative;}
+
+.srcoll {
+    height: calc(100vh - 176px);
+    overflow-y: auto;
+}
+
+
+.dark-only .innercardheader h5 {
+    color: #000;
+}
+
+.close-search {
+    cursor: pointer;
+}
+.divFlex {display: flex;justify-content: space-between;align-items: center;padding: 0 !important;}
+
+
+.c-searchinnercard-extra-btn  {
+	border: 2px solid #00a9a3;
+    border-radius: 50%;
+	width: 25px;
+    height: 25px;
+	margin-left: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+    overflow: hidden;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.c-searchinnercard-extra-btn i {
+	animation: bounce 1600ms infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
+	font-size: 19px;
+    color: #00a9a3;
+}
+
+@keyframes bounce {
+	0% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-5px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+@media only screen and (max-width:767px) {
+.c-searchboxcrad-scroll { margin: 0; margin-bottom: 15px;width: 100%;}
+}

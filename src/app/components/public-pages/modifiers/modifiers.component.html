@@ -1,0 +1,134 @@
+<!-- <app-breadcrumb [title]="'Modifiers'" [items]="items" [active_item]="'Modifiers'"></app-breadcrumb> -->
+<!-- Container-fluid starts-->
+<div class="container-fluid product-wrapper" [class.sidebaron]="openSidebar">
+    <div class="product-grid">
+        <div class="feature-products">
+            <div class="row">
+                <div class="col-md-6 products-total mb-3">
+                    <span class="d-none-productlist filter-toggle" (click)="sidebarToggle()">
+                        Filters
+                        <span class="ml-2">
+                            <i class="toggle-data" data-feather="chevron-down"></i>
+                        </span>
+                    </span>
+                </div>
+                <div class="col-md-6 text-right mb-3"><span class="f-w-600 m-r-5">Showing Modifier
+                    {{(page.count>0)? (((page.offset - 1) * page.limit) + 1) : 0 }} -
+                    {{(page.limit < page.count) ? (((page.offset - 1) * page.limit) + page.limit) : page.count}} Of
+                        {{page.count}} Results</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <form [formGroup]="searchForm">
+                        <div class="product-sidebar">
+                            <div class="filter-section">
+                                <div class="card">
+                                    <div class="card-header" (click)="sidebarToggle()">
+                                        <h6 class="mb-0 f-w-600">Filters
+                                            <span class="pull-right">
+                                                <i class="fa fa-chevron-down toggle-data"></i>
+                                            </span>
+                                        </h6>
+                                    </div>
+                                    <div class="left-filter">
+                                        <div class="card-body filter-cards-view animate-chk" style="padding: 20px;">
+                                            <div class="product-filter">
+                                                <div class="checkbox-animated mt-0">
+                                                    <div class="d-block" *ngFor="let item of chboxArray;  let i = index">
+                                                        <input class="checkbox_animated" type="checkbox" value="item.id" [checked]="selected === i" (change)="chboxClicked($event,i)">
+                                                        <label> {{item.label}}</label>
+                                                    </div>
+                                                </div>                                      
+                                            </div>
+                                            <div class="product-filter">
+                                                <!-- <label for="type">Filter by Update</label> -->
+                                                <ng-select
+                                                    [items]="updateOptions" 
+                                                    placeholder="Select"
+                                                    bindLabel="label" 
+                                                    bindValue="value"  
+                                                    formControlName="dateFilterType">
+                                                    <ng-template ng-header-tmp>
+                                                        Filter by Update
+                                                    </ng-template>
+                                                </ng-select>
+                                            </div>
+                                            <div class="product-filter" *ngIf="searchForm.controls['dateFilterType'].value == 0">
+                                                <!-- <label for="born">From</label> -->
+                                                <input class="form-control input-air-primary" type="date" placeholder="From" formControlName="lastUpdatedFrom">
+                                            </div>
+                                            <div class="product-filter" *ngIf="searchForm.controls['dateFilterType'].value == 0">
+                                                <!-- <label for="born">To</label> -->
+                                                <input class="form-control input-air-primary" type="date" placeholder="To" formControlName="lastUpdatedto">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <form [formGroup]="searchForm" (ngSubmit)="search()">
+                        <div class="input-group mb-3">
+                            <input #searchBox type="search" class="form-control" placeholder="Search.." data-original-title=""
+                            title="" formControlName="searchText" aria-describedby="basic-addon1" (input)="onInputSearch($event)">
+                            <button class="input-group-append c-search-btn">
+                                <span class="input-group-text searchBx" id="basic-addon1"><i class="fa fa-search"></i></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <div class="form-group mb-0 short">
+                        <form [formGroup]="searchForm">
+                            <select class="form-control" formControlName="order">
+                                <option value="">Sort By</option>
+                                <option *ngFor="let sort of sortBy" value="{{sort.value}}">{{sort.label}}</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product-wrapper-grid mt-3" [class.list-view]="listView">
+            <div *ngIf="viewType === 'Grid'">
+                <div class="flexboxx" *ngFor="let data of rows; let i=index; last as isLastParent">
+                    <div class="list_tem grd">                      
+                        <p class="mb-0 title w-100 pl-0">Name: <a class="link" href="{{getEditUrl(data.id)}}">{{data.name}}</a></p>
+                        <div class="list_info pl-0"> 
+                                <p>Date: <i class="icon-alarm-clock"></i> {{data.daysCount}}({{data.modifiedUser}})</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="viewType === 'List'">
+                <div class="pr-0 col-sm-12 col-xl-12 ng-star-inserted" 
+                *ngFor="let data of rows; let i=index; last as isLastParent"> 
+                    <div class="list_tem tbl d-flex align-items-center justify-content-between">
+                        <div class="item_header d-flex align-items-center justify-content-start" style="flex: 1;">
+                            <p class="mb-0 title">
+                                <a class="link" href="{{getEditUrl(data.id)}}">{{data.name}}</a>
+                            </p>
+                            <div class="d-flex align-items-center pl-1">
+                                <div class="list_info">
+                                    <span>  
+                                        <i class="icon-alarm-clock"></i> {{data.daysCount}}({{data.modifiedUser}})
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="outer-pagination">
+            <ngb-pagination class="d-flex justify-content-center my-2" [collectionSize]="page.count" [pageSize]="page.limit"
+               [rotate]="true" (page)="page.offset" [maxSize]="5" (pageChange)="loadPage($event)" aria-label="Pagination"  *ngIf="rows && rows.length > 0">
+            </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

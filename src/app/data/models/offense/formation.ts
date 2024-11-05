@@ -1,0 +1,122 @@
+interface IFormation {
+    id: string;
+    formationName: string;
+    tagNames: [];
+    baseFormationName: string;
+    oppBaseFormationName: string;
+    baseFormationId: string;
+    formationSetId: string;
+    playerPositions: [];
+    oppPlayerPositions: [];
+    isArchive: boolean;
+    isFavorite: boolean;
+    favoriteStatus: string;
+    captureImg: string;
+    isDefault: boolean;
+    defaultStatus: string;
+    isDesktopUpload: boolean;
+    isAutoGenarated: boolean;
+    daysCount: string;
+    modifiedUser: string;
+    formationImages: FormationImages[];
+    formationVideos: FormationImages[];
+    dislike: boolean;
+    defaultFileSeq: string;
+    thumbnailSeq: string;
+    plays: any[];
+    hash: any;
+    isDefaultFileVideo: boolean;
+    isAccountData: boolean;
+    formationFootballMinds: FormationFootballMind[];
+}
+export class Formation implements IFormation {
+    id: string;
+    formationName: string;
+    tagNames: [];
+    baseFormationName: string;
+    oppBaseFormationName: string;
+    baseFormationId: string;
+    formationSetId: string;
+    playerPositions: [];
+    oppPlayerPositions: [];
+    isArchive: boolean;
+    isFavorite: boolean;
+    favoriteStatus: string;
+    captureImg: string;
+    isDefault: boolean;
+    defaultStatus: string;
+    isDesktopUpload: boolean;
+    isAutoGenarated: boolean;
+    daysCount: string;
+    modifiedUser: string;
+    formationImages: FormationImages[];
+    formationVideos: FormationImages[];
+    dislike: boolean;
+    defaultFileSeq: string;
+    thumbnailSeq: string;
+    plays: any[];
+    hash: any;
+    fileSeq?: string;
+    isDefaultFileVideo: boolean;
+    isAccountData: boolean;
+    onlyShowUpdatable?: boolean;
+    formationFootballMinds: FormationFootballMind[];
+    isVideo?: boolean;
+    thumbnailUrl?: string;
+    fileUrl?: string;
+    gifFile?: string;
+    constructor(formation?: IFormation) {
+        this.id = formation && formation.id || "";
+        this.formationName = formation && formation.formationName || "";
+        this.tagNames = formation && formation.tagNames || [];
+        this.baseFormationName = formation && formation.baseFormationName || "";
+        this.oppBaseFormationName = formation && formation.oppBaseFormationName || "";
+        this.baseFormationId = formation && formation.baseFormationId || "";
+        this.formationSetId = formation && formation.formationSetId || "";
+        this.playerPositions = formation && formation.playerPositions || [];
+        this.oppPlayerPositions = formation && formation.oppPlayerPositions || [];
+        this.isArchive = formation && formation.isArchive || false;
+        this.isFavorite = formation && formation.isFavorite || false;
+        this.isDefault = formation && formation.isDefault || false;
+        this.favoriteStatus = formation && formation.favoriteStatus || '';
+        this.captureImg = formation && formation.captureImg || '';
+        this.defaultStatus = formation && formation.defaultStatus || '';
+        this.isDesktopUpload = formation && formation.isDesktopUpload || false;
+        this.isAutoGenarated = formation && formation.isAutoGenarated || false;
+        this.daysCount = formation && formation.daysCount || '';
+        this.modifiedUser = formation && formation.modifiedUser || '';
+        this.formationImages = formation && formation.formationImages || [];
+        this.formationVideos = formation && formation.formationVideos || [];
+        this.dislike = formation && formation.dislike || false;
+        this.defaultFileSeq = formation && formation.defaultFileSeq || "";
+        this.thumbnailSeq = formation && formation.thumbnailSeq || "";
+        this.plays = formation && formation.plays || [];
+        this.hash = formation && formation.hash || {};
+        this.isDefaultFileVideo = formation && formation.isDefaultFileVideo || false;
+        this.isAccountData = formation && formation.isAccountData || false;
+        this.formationFootballMinds = formation && formation.formationFootballMinds || [];
+    }
+}
+
+export class FormationImages {
+    id?: string;
+    isDesktopUpload?: boolean;
+    isAutoGenarated?: boolean;
+    isDefault?: boolean;
+    fileSeq?: string;
+    fileName?: string;
+    fileUrl?: string;
+    thumbnailUrl?: string;
+    thumbnailSeq?: string;
+    isVideo?: boolean;
+    isWebUpload?: boolean;
+    isAzureUpload?: boolean;
+}
+export class FormationFootballMind {
+    id?: string;
+    formationId?: string;
+    footballMindId?: string;
+    footballMindName?: string;
+    videoLink?: any;
+    videoFilterLink?: any;
+}
