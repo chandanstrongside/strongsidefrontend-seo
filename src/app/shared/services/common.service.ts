@@ -6,7 +6,7 @@ import { map } from 'rxjs';
   providedIn: 'root'
 })
 export class CommonService {
-  apiPath = 'https://strongside-api-prod.azurewebsites.net/web-api/api/v2/';
+  apiPath = 'https://api.strongside.app/api/v2/';
 
   constructor(
     private http: HttpClient,
